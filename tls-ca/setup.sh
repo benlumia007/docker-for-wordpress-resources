@@ -13,6 +13,16 @@ if [[ ! -d "certificates" ]]; then
     openssl req -x509 -new -nodes -key "certificates/ca.key" -sha256 -days 365 -out "certificates/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
 fi
 
+if [[ -f "certificates/ca.crt" ]]; then
+    cp "config/certs/domain.ext" "certificates/dashboard.ext"
+    sed -i -e "s/{{DOMAIN}}/dashboard/g" "certificates/dashboard.ext"
+    rm -rf "certificates/dashboard.ext-e"
+
+    openssl genrsa -out "certificates/dashboard.key" 4096 &> /dev/null
+    openssl req -new -key "certificates/dashboard.key" -out "certificates/dashboard.csr" -subj "/CN=*.dashboard.test" &> /dev/null
+    openssl x509 -req -in "certificates/dashboard.csr" -CA "certificates/ca.crt" -CAkey "certificates/ca.key" -CAcreateserial -out "certificates/dashboard.crt" -days 365 -sha256 -extfile "certificates/dashboard.ext" &> /dev/null
+fi
+
 for domain in `get_sites`; do
     provision=`cat ${config} | shyaml get-value sites.${sites}.provision`
 
