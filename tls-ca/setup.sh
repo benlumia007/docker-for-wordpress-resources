@@ -36,7 +36,5 @@ for domain in `get_sites`; do
             openssl req -new -key "certificates/${domain}.key" -out "certificates/${domain}.csr" -subj "/CN=*.${domain}.test" &> /dev/null
             openssl x509 -req -in "certificates/${domain}.csr" -CA "certificates/ca.crt" -CAkey "certificates/ca.key" -CAcreateserial -out "certificates/${domain}.crt" -days 365 -sha256 -extfile "certificates/${domain}.ext" &> /dev/null
         fi
-        rm -rf "certificates/${domain}.csr"
-        rm -rf "certificates/${domain}.ext"
     fi
 done
