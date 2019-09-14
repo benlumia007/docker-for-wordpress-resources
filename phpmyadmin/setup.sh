@@ -8,4 +8,5 @@ if [[ ! -d "sites/dashboard/public_html/phpmyadmin" ]]; then
     mv phpMyAdmin-4.9.0.1-all-languages/* "sites/dashboard/public_html/phpmyadmin"
     rm -rf phpMyAdmin-4.9.0.1-all-languages
     rm "sites/dashboard/public_html/phpmyadmin/phpmyadmin.zip"
+    cp "config/phpmyadmin/config.inc.php" "sites/dashboard/public_html"
 fi
