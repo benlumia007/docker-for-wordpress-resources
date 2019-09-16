@@ -24,7 +24,7 @@ if [[ -f "certificates/ca.crt" ]]; then
 fi
 
 for domain in `get_sites`; do
-    provision=`cat ${config} | shyaml get-value sites.${sites}.provision`
+    provision=`cat ${config} | shyaml get-value sites.${domain}.provision`
 
     if [[ "True" == ${provision} ]]; then
         if [[ ! -f "certificates/${domain}.crt" ]]; then
