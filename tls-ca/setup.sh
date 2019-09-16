@@ -24,7 +24,7 @@ if [[ -f "certificates/ca.crt" ]]; then
 fi
 
 for domain in `get_sites`; do
-    if [[ -f "certificates/ca.crt" ]]; then
+    if [[ ! -f "certificates/${domain}.crt" ]]; then
         cp "config/certs/domain.ext" "certificates/${domain}.ext"
         sed -i -e "s/{{DOMAIN}}/${domain}/g" "certificates/${domain}.ext"
         rm -rf "certificates/${domain}.ext-e"
