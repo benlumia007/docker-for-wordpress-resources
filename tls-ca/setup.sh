@@ -7,11 +7,13 @@ get_sites() {
     echo ${value:-$@}
 }
 
-if [[ ! -d "certificates" ]]; then
-    mkdir -p "certificates"
-    openssl genrsa -out "certificates/ca.key" 4096 &> /dev/null
-    openssl req -x509 -new -nodes -key "certificates/ca.key" -sha256 -days 365 -out "certificates/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
+if [[ ! -d "certificates/ca" ]]; then
+    mkdir -p "certificates/ca"
+    openssl genrsa -out "certificates/ca/ca.key" 4096 &> /dev/null
+    openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
 fi
+
+exit 1
 
 if [[ -f "certificates/ca.crt" ]]; then
     cp "config/certs/domain.ext" "certificates/dashboard.ext"
