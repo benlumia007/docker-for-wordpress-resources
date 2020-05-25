@@ -29,6 +29,7 @@ for domain in `get_sites`; do
 
     if [[ "True" == ${provision} ]]; then
         if [[ ! -f "certificates/${domain}/${domain}.crt" ]]; then
+            mkdir -p "certificates/${domain}"
             cp "config/certs/domain.ext" "certificates/${domain}/${domain}.ext"
             sed -i -e "s/{{DOMAIN}}/${domain}/g" "certificates/${domain}/${domain}.ext"
             rm -rf "certificates/${domain}/${domain}.ext-e"
