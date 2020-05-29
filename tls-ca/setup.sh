@@ -3,7 +3,7 @@
 config=".global/docker-custom.yml"
 
 get_sites() {
-    local value=`cat ${config} | shyaml keys sites 2> /dev/null`
+    local value=`cat ${config} | shyaml keys sites.domain 2> /dev/null`
     echo ${value:-$@}
 }
 
@@ -25,7 +25,7 @@ if [[ -f "certificates/ca/ca.crt" ]]; then
 fi
 
 for domain in `get_sites`; do
-    provision=`cat ${config} | shyaml get-value sites.${domain}.provision`
+    provision=`cat ${config} | shyaml get-value sites.provision`
 
     if [[ "True" == ${provision} ]]; then
         if [[ ! -f "certificates/${domain}/${domain}.crt" ]]; then
