@@ -24,7 +24,9 @@ if [[ -f "certificates/ca/ca.crt" ]]; then
     openssl x509 -req -in "certificates/dashboard/dashboard.csr" -CA "certificates/ca/ca.crt" -CAkey "certificates/ca/ca.key" -CAcreateserial -out "certificates/dashboard/dashboard.crt" -days 365 -sha256 -extfile "certificates/dashboard/dashboard.ext" &> /dev/null
 fi
 
-for domain in `get_sites`; do
+domains=`get_sites`
+
+for domain in ${domains//- /$'\n'}; do
     provision=`cat ${config} | shyaml get-value sites.provision`
 
     if [[ "True" == ${provision} ]]; then
