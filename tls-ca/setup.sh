@@ -3,19 +3,19 @@
 config=${PWD}/.global/docker-custom.yml
 
 echo ${config}
-exit 1
-
 
 get_sites() {
-    local value=`cat ${config} | shyaml get-value sites.domain 2> /dev/null`
+    local value=`cat ${config} | shyaml keys sites 2> /dev/null`
     echo ${value:-$@}
 }
 
-if [[ ! -d "certificates/ca" ]]; then
-    mkdir -p "certificates/ca"
-    openssl genrsa -out "certificates/ca/ca.key" 4096 &> /dev/null
-    openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
+if [[ ! -d "/srv/certificates/ca" ]]; then
+    mkdir -p "/srv/certificates/ca"
+    openssl genrsa -out "/srv/certificates/ca/ca.key" 4096 &> /dev/null
+    openssl req -x509 -new -nodes -key "/srv/certificates/ca/ca.key" -sha256 -days 365 -out "/srv/certificates/ca/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
 fi
+
+exit 1
 
 if [[ -f "certificates/ca/ca.crt" ]]; then
     mkdir -p "certificates/dashboard"
