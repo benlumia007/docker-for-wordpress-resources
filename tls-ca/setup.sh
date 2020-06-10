@@ -15,17 +15,14 @@ if [[ ! -d "/srv/certificates/ca" ]]; then
     openssl req -x509 -new -nodes -key "/srv/certificates/ca/ca.key" -sha256 -days 365 -out "/srv/certificates/ca/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
 fi
 
-exit 1
+if [[ -f "/srv/certificates/dashboard/dashboard.crt" ]]; then
+    mkdir -p "/srv/certificates/dashboard"
+    cp "/app/config/templates/certs.ext" "/srv/certificates/dashboard/dashboard.ext"
+    sed -i -e "s/{{DOMAIN}}/dashboard/g" "/srv/certificates/dashboard/dashboard.ext"
 
-if [[ -f "certificates/ca/ca.crt" ]]; then
-    mkdir -p "certificates/dashboard"
-    cp "config/certs/domain.ext" "certificates/dashboard/dashboard.ext"
-    sed -i -e "s/{{DOMAIN}}/dashboard/g" "certificates/dashboard/dashboard.ext"
-    rm -rf "certificates/dashboard/dashboard.ext-e"
-
-    openssl genrsa -out "certificates/dashboard/dashboard.key" 4096 &> /dev/null
-    openssl req -new -key "certificates/dashboard/dashboard.key" -out "certificates/dashboard/dashboard.csr" -subj "/CN=*.dashboard.test" &> /dev/null
-    openssl x509 -req -in "certificates/dashboard/dashboard.csr" -CA "certificates/ca/ca.crt" -CAkey "certificates/ca/ca.key" -CAcreateserial -out "certificates/dashboard/dashboard.crt" -days 365 -sha256 -extfile "certificates/dashboard/dashboard.ext" &> /dev/null
+    openssl genrsa -out "/srv/certificates/dashboard/dashboard.key" 4096 &> /dev/null
+    openssl req -new -key "/srv/certificates/dashboard/dashboard.key" -out "/srv/certificates/dashboard/dashboard.csr" -subj "/CN=*.dashboard.test" &> /dev/null
+    openssl x509 -req -in "/srv/certificates/dashboard/dashboard.csr" -CA "/srv/certificates/ca/ca.crt" -CAkey "/srv/certificates/ca/ca.key" -CAcreateserial -out "/srv/certificates/dashboard/dashboard.crt" -days 365 -sha256 -extfile "/srv/certificates/dashboard/dashboard.ext" &> /dev/null
 fi
 
 domains=`get_sites`
