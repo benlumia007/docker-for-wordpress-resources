@@ -2,6 +2,10 @@
 
 config=${PWD}/.global/docker-custom.yml
 
+echo ${config}
+exit 1
+
+
 get_sites() {
     local value=`cat ${config} | shyaml get-value sites.domain 2> /dev/null`
     echo ${value:-$@}
