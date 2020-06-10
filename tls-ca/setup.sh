@@ -25,12 +25,10 @@ if [[ ! -f "/srv/certificates/dashboard/dashboard.crt" ]]; then
     openssl x509 -req -in "/srv/certificates/dashboard/dashboard.csr" -CA "/srv/certificates/ca/ca.crt" -CAkey "/srv/certificates/ca/ca.key" -CAcreateserial -out "/srv/certificates/dashboard/dashboard.crt" -days 365 -sha256 -extfile "/srv/certificates/dashboard/dashboard.ext" &> /dev/null
 fi
 
-exit 1
-
 domains=`get_sites`
 
 for domain in ${domains//- /$'\n'}; do
-    provision=`cat ${config} | shyaml get-value sites.provision`
+    provision=`cat ${config} | shyaml get-value sites.${domain}.provision`
 
     if [[ "True" == ${provision} ]]; then
         if [[ ! -f "certificates/${domain}/${domain}.crt" ]]; then
