@@ -15,7 +15,7 @@ if [[ ! -d "/srv/certificates/ca" ]]; then
     openssl req -x509 -new -nodes -key "/srv/certificates/ca/ca.key" -sha256 -days 365 -out "/srv/certificates/ca/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
 fi
 
-if [[ -f "/srv/certificates/dashboard/dashboard.crt" ]]; then
+if [[ ! -f "/srv/certificates/dashboard/dashboard.crt" ]]; then
     mkdir -p "/srv/certificates/dashboard"
     cp "/app/config/templates/certs.ext" "/srv/certificates/dashboard/dashboard.ext"
     sed -i -e "s/{{DOMAIN}}/dashboard/g" "/srv/certificates/dashboard/dashboard.ext"
