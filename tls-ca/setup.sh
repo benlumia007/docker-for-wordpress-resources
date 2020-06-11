@@ -33,7 +33,7 @@ for domain in ${domains//- /$'\n'}; do
     if [[ "True" == ${provision} ]]; then
         if [[ ! -f "/srv/certificates/${domain}/${domain}.crt" ]]; then
             mkdir -p "/srv/certificates/${domain}"
-            cp "config/certs/domain.ext" "/srv/certificates/${domain}/${domain}.ext"
+            cp "/app/config/templates/certs.ext" "/srv/certificates/${domain}/${domain}.ext"
             sed -i -e "s/{{DOMAIN}}/${domain}/g" "/srv/certificates/${domain}/${domain}.ext"
             rm -rf "/srv/certificates/${domain}/${domain}.ext-e"
 
