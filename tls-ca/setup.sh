@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-config="/srv/.global/custom.yml
+config="/srv/.global/custom.yml"
 
 echo ${config}
 
