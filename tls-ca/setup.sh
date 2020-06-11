@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-config=${PWD}/.global/docker-custom.yml
+config="/srv/.global/custom.yml
 
 echo ${config}
 
