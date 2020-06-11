@@ -2,8 +2,6 @@
 
 config="/srv/.global/custom.yml"
 
-echo ${config}
-
 get_sites() {
     local value=`cat ${config} | shyaml keys sites 2> /dev/null`
     echo ${value:-$@}
