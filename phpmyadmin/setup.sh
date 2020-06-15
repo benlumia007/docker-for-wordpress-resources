@@ -8,5 +8,5 @@ if [[ ! -d "/srv/www/dashboard/public_html/phpmyadmin" ]]; then
     mv phpMyAdmin-5.0.2-all-languages/* "/srv/www/dashboard/public_html/phpmyadmin"
     rm -rf phpMyAdmin-5.0.2-all-languages
     rm "/srv/www/dashboard/public_html/phpmyadmin/phpmyadmin.zip"
-    cp "/app/config/config.inc.php" "/srv/www/dashboard/public_html/phpmyadmin"
+    cp "/app/config/templates/config.inc.php" "/srv/www/dashboard/public_html/phpmyadmin"
 fi
