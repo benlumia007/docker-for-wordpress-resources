@@ -3,9 +3,4 @@
 if [[ ! -d "/srv/www/dashboard/public_html/phpmyadmin" ]]; then
     noroot mkdir -p "/srv/www/dashboard/public_html/phpmyadmin"
     noroot wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.zip -O "/srv/www/dashboard/public_html/phpmyadmin/phpmyadmin.zip"
-    noroot unzip "/srv/www/dashboard/public_html/phpmyadmin/phpmyadmin.zip"
-    noroot mv phpMyAdmin-5.0.2-all-languages/* "/srv/www/dashboard/public_html/phpmyadmin"
-    noroot rm -rf phpMyAdmin-5.0.2-all-languages
-    noroot rm "/srv/www/dashboard/public_html/phpmyadmin/phpmyadmin.zip"
-    noroot cp "/app/config/templates/config.inc.php" "/srv/www/dashboard/public_html/phpmyadmin"
 fi
