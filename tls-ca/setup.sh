@@ -15,7 +15,7 @@ fi
 
 if [[ ! -f "/srv/certificates/dashboard/dashboard.crt" ]]; then
     noroot mkdir -p "/srv/certificates/dashboard"
-    noroot cp "/app/config/templates/certs.ext" "/srv/certificates/dashboard/dashboard.ext"
+    noroot cp "/srv/config/apache2/certs.ext" "/srv/certificates/dashboard/dashboard.ext"
     noroot sed -i -e "s/{{DOMAIN}}/dashboard/g" "/srv/certificates/dashboard/dashboard.ext"
 
     noroot openssl genrsa -out "/srv/certificates/dashboard/dashboard.key" 4096 &> /dev/null
@@ -31,7 +31,7 @@ for domain in ${domains//- /$'\n'}; do
     if [[ "True" == ${provision} ]]; then
         if [[ ! -f "/srv/certificates/${domain}/${domain}.crt" ]]; then
             noroot mkdir -p "/srv/certificates/${domain}"
-            noroot cp "/app/config/templates/certs.ext" "/srv/certificates/${domain}/${domain}.ext"
+            noroot cp "/srv/config/apache2/certs.ext" "/srv/certificates/${domain}/${domain}.ext"
             noroot sed -i -e "s/{{DOMAIN}}/${domain}/g" "/srv/certificates/${domain}/${domain}.ext"
             noroot rm -rf "/srv/certificates/${domain}/${domain}.ext-e"
 
