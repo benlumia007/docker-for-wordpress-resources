@@ -8,6 +8,6 @@ if [[ ! -d "/srv/www/dashboard/public_html/phpmyadmin" ]]; then
     noroot mv phpMyAdmin-5.1.0-all-languages/* "/srv/www/dashboard/public_html/phpmyadmin"
     noroot rm -rf phpMyAdmin-5.1.0-all-languages
     noroot rm "phpmyadmin.zip"
-    noroot cp "/app/config/templates/config.inc.php" "/srv/www/dashboard/public_html/phpmyadmin"
+    noroot cp "/srv/config/phpmyadmin/config.inc.php" "/srv/www/dashboard/public_html/phpmyadmin"
     cd /app
 fi
