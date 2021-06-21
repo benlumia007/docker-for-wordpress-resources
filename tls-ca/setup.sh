@@ -10,7 +10,7 @@ get_sites() {
 if [[ ! -d "/srv/certificates/ca" ]]; then
     noroot mkdir -p "/srv/certificates/ca"
     noroot openssl genrsa -out "/srv/certificates/ca/ca.key" 4096 &> /dev/null
-    noroot openssl req -x509 -new -nodes -key "/srv/certificates/ca/ca.key" -sha256 -days 365 -out "/srv/certificates/ca/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
+    noroot openssl req -x509 -new -nodes -key "/srv/certificates/ca/ca.key" -sha256 -days 365 -out "/srv/certificates/ca/ca.crt" -subj "/CN=Sturdy Docker" &> /dev/null
 fi
 
 if [[ ! -f "/srv/certificates/dashboard/dashboard.crt" ]]; then
